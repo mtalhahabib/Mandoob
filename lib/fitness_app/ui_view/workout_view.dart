@@ -1,5 +1,7 @@
-
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:web_project/controllers/contactsController.dart';
 import 'package:web_project/main.dart';
 import 'package:flutter/material.dart';
 import '../fitness_app_theme.dart';
@@ -8,9 +10,11 @@ class WorkoutView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
 
-  const WorkoutView({Key? key, this.animationController, this.animation})
+  WorkoutView({Key? key, this.animationController, this.animation})
       : super(key: key);
-
+  final contactsController = Get.put(ContactsViewModel());
+  final ImagePicker picker = ImagePicker();
+  XFile? photo = null;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -26,11 +30,10 @@ class WorkoutView extends StatelessWidget {
                   left: 24, right: 24, top: 16, bottom: 18),
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-
-                    HexColor("#612802"),
-                    HexColor("#f29c63")
-                  ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                  gradient: LinearGradient(
+                      colors: [HexColor("#612802"), HexColor("#f29c63")],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight),
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       bottomLeft: Radius.circular(8.0),
@@ -123,16 +126,24 @@ class WorkoutView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(0.0),
                                 child: IconButton(
-                                  onPressed:(){},
-                                  icon:
-                                  const Icon(Icons.camera_alt_outlined,size: 44),
+                                  onPressed: () async {
+                                    photo = await picker.pickImage(
+                                        source: ImageSource.camera);
+                                    if (photo != null) {
+                                      contactsController
+                                          .uploadImage(photo!.path);
+                                      contactsController.picUploaded();
+                                    }
+                                  },
+                                  icon: const Icon(Icons.camera_alt_outlined,
+                                      size: 44),
                                   color: Colors.brown,
-                                  
                                 ),
                               ),
                             ),
                             const SizedBox(
-                              width: 16,),
+                              width: 16,
+                            ),
                             Container(
                               decoration: BoxDecoration(
                                 color: FitnessAppTheme.nearlyWhite,
@@ -148,11 +159,17 @@ class WorkoutView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(0.0),
                                 child: IconButton(
-                                  onPressed:(){},
-                                  icon:
-                                  const Icon(Icons.upload_file,size: 44),
+                                  onPressed: () async {
+                                    photo = await picker.pickImage(
+                                        source: ImageSource.gallery);
+                                    if (photo != null) {
+                                      contactsController
+                                          .uploadImage(photo!.path);
+                                      contactsController.picUploaded();
+                                    }
+                                  },
+                                  icon: const Icon(Icons.upload_file, size: 44),
                                   color: Colors.brown,
-                                  
                                 ),
                               ),
                             )
