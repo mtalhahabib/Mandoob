@@ -138,9 +138,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
           height: 16,
         ),
         CategoryListView(
-          callBack: () {
-            moveTo();
-          },
+         
         ),
       ],
     );
@@ -165,24 +163,13 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
           ),
           Flexible(
             child: PopularCourseListView(
-              callBack: () {
-                moveTo();
-              },
+              
             ),
           ),
           SizedBox(
             height: 50,
           )
         ],
-      ),
-    );
-  }
-
-  void moveTo() {
-    Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseInfoScreen(),
       ),
     );
   }

@@ -1,13 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/design_course_app_theme.dart';
 import 'package:web_project/design_course/models/category.dart';
 
 class CategoryListView extends StatefulWidget {
-  const CategoryListView({Key? key, this.callBack}) : super(key: key);
+  const CategoryListView({
+    Key? key,
+  }) : super(key: key);
 
-  final Function()? callBack;
   @override
   _CategoryListViewState createState() => _CategoryListViewState();
 }
@@ -68,7 +69,6 @@ class _CategoryListViewState extends State<CategoryListView>
                     category: Category.categoryList[index],
                     animation: animation,
                     animationController: animationController,
-                    callback: widget.callBack,
                   );
                 },
               );
@@ -81,15 +81,12 @@ class _CategoryListViewState extends State<CategoryListView>
 }
 
 class CategoryView extends StatelessWidget {
-  const CategoryView(
-      {Key? key,
-      this.category,
-      this.animationController,
-      this.animation,
-      this.callback})
-      : super(key: key);
-
-  final VoidCallback? callback;
+  const CategoryView({
+    Key? key,
+    this.category,
+    this.animationController,
+    this.animation,
+  }) : super(key: key);
   final Category? category;
   final AnimationController? animationController;
   final Animation<double>? animation;
@@ -106,7 +103,21 @@ class CategoryView extends StatelessWidget {
                 100 * (1.0 - animation!.value), 0.0, 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
-              onTap: callback,
+              onTap: () {
+                Navigator.push<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (BuildContext context) => CourseInfoScreen(
+                      image: category!.imagePath,
+                      title: category!.title,
+                      date: category!.date,
+                      time: category!.time,
+                      location: category!.location,
+                      money: category!.money,
+                    ),
+                  ),
+                );
+              },
               child: SizedBox(
                 width: 280,
                 child: Stack(
@@ -183,8 +194,7 @@ class CategoryView extends StatelessWidget {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 12,
-                                                          
-                                                          color:Colors.black,
+                                                          color: Colors.black,
                                                         ),
                                                       ),
                                                       Icon(
@@ -258,8 +268,8 @@ class CategoryView extends StatelessWidget {
                     ),
                     Container(
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 0, bottom: 0, left: 6),
+                        padding:
+                            const EdgeInsets.only(top: 0, bottom: 0, left: 6),
                         child: Row(
                           children: <Widget>[
                             ClipRRect(

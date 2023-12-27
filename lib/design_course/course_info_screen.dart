@@ -2,6 +2,22 @@ import 'package:flutter/material.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
+  CourseInfoScreen(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.time,
+      required this.date,
+      required this.location,
+      required this.money})
+      : super(key: key);
+  final String? image;
+  final String? title;
+  final String? time;
+  final String? date;
+  final String? location;
+  final int? money;
+
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
 }
@@ -54,10 +70,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
           children: <Widget>[
             Column(
               children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 1.2,
-                  child: Image.asset('assets/design_course/webInterFace.png'),
-                ),
+                Image.asset(widget.image!),
               ],
             ),
             Positioned(
@@ -95,7 +108,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding: const EdgeInsets.only(
                                 top: 32.0, left: 18, right: 16),
                             child: Text(
-                              'Web Design\nCourse',
+                              widget.title!,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -113,7 +126,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '\$28.99',
+                                  'Rs ${widget.money}',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
@@ -153,9 +166,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
-                                  getTimeBoxUI('24', 'Classe'),
-                                  getTimeBoxUI('2hours', 'Time'),
-                                  getTimeBoxUI('24', 'Seat'),
+                                  getTimeBoxUI(widget.time!),
+                                  getDateBoxUI(widget.date!),
+                                  getLocationBoxUI(widget.location!),
                                 ],
                               ),
                             ),
@@ -234,7 +247,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                       ),
                                       child: Center(
                                         child: Text(
-                                          'Join Course',
+                                          'Register Now',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -314,7 +327,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
     );
   }
 
-  Widget getTimeBoxUI(String text1, String txt2) {
+  Widget getTimeBoxUI(String text1) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -345,16 +358,83 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                   color: DesignCourseAppTheme.nearlyBlue,
                 ),
               ),
+              Icon(Icons.alarm,color: Colors.grey,)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+   Widget getDateBoxUI(String text1) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: DesignCourseAppTheme.nearlyWhite,
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                offset: const Offset(1.1, 1.1),
+                blurRadius: 8.0),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
               Text(
-                txt2,
+                text1,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: FontWeight.w200,
+                  fontWeight: FontWeight.w600,
                   fontSize: 14,
                   letterSpacing: 0.27,
-                  color: DesignCourseAppTheme.grey,
+                  color: DesignCourseAppTheme.nearlyBlue,
                 ),
               ),
+              Icon(Icons.calendar_month,color: Colors.grey,)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+   Widget getLocationBoxUI(String text1) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: DesignCourseAppTheme.nearlyWhite,
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                offset: const Offset(1.1, 1.1),
+                blurRadius: 8.0),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                text1,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  letterSpacing: 0.27,
+                  color: DesignCourseAppTheme.nearlyBlue,
+                ),
+              ),
+              Icon(Icons.location_searching,color: Colors.grey,)
             ],
           ),
         ),

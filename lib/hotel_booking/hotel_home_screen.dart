@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:web_project/hotel_booking/calendar_popup_view.dart';
+import 'package:web_project/hotel_booking/eventNotes.dart';
 import 'package:web_project/hotel_booking/hotel_list_view.dart';
 import 'package:web_project/hotel_booking/model/hotel_list_data.dart';
 import 'filters_screen.dart';
@@ -116,7 +117,19 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                                               curve: Curves.fastOutSlowIn)));
                               animationController?.forward();
                               return HotelListView(
-                                callback: () {},
+                                callback: () {
+                                  Navigator.push<dynamic>(
+                                    context,
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) =>
+                                          EventNotes(
+                                        image: hotelList[index].imagePath,
+                                        notes: hotelList[index].notes,
+                                        title: hotelList[index].titleTxt,
+                                          ),
+                                    ),
+                                  );
+                                },
                                 hotelData: hotelList[index],
                                 animation: animation,
                                 animationController: animationController!,

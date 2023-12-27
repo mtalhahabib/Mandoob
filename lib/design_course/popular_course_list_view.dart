@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/design_course_app_theme.dart';
 import 'package:web_project/design_course/models/category.dart';
 
 class PopularCourseListView extends StatefulWidget {
-  const PopularCourseListView({Key? key, this.callBack}) : super(key: key);
+  const PopularCourseListView({Key? key, }) : super(key: key);
 
-  final Function()? callBack;
+  
   @override
   _PopularCourseListViewState createState() => _PopularCourseListViewState();
 }
@@ -54,7 +55,7 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
                   );
                   animationController?.forward();
                   return CategoryView(
-                    callback: widget.callBack,
+                    
                     category: Category.popularCourseList[index],
                     animation: animation,
                     animationController: animationController,
@@ -81,10 +82,10 @@ class CategoryView extends StatelessWidget {
       this.category,
       this.animationController,
       this.animation,
-      this.callback})
+      })
       : super(key: key);
 
-  final VoidCallback? callback;
+  
   final Category? category;
   final AnimationController? animationController;
   final Animation<double>? animation;
@@ -101,7 +102,22 @@ class CategoryView extends StatelessWidget {
                 0.0, 50 * (1.0 - animation!.value), 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
-              onTap: callback,
+              onTap: (){
+                 Navigator.push<dynamic>(
+      context,
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => CourseInfoScreen(
+          image: category!.imagePath,
+          title: category!.title,
+          date: category!.date,
+          time: category!.time,
+          location: category!.location,
+          money: category!.money,
+
+        ),
+      ),
+    );
+              },
               child: Container(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, right: 0, left: 0),
