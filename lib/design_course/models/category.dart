@@ -1,46 +1,51 @@
 class Category {
-  Category({
-    this.title = '',
-    this.imagePath = '',
-    this.lessonCount = 0,
-    this.money = 0,
-    this.rating = 0.0,
-  });
+  Category(
+      {this.title = '',
+      this.imagePath = '',
+      this.date = '01 Jan',
+      this.money = 0,
+      this.time = '9 AM',
+      this.location = 'Al Burhan'});
 
   String title;
-  int lessonCount;
+  String date;
   int money;
-  double rating;
+  String time;
   String imagePath;
+  String location;
 
   static List<Category> categoryList = <Category>[
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'Glory of the Glorious',
-      lessonCount: 24,
+      date: '30 Dec',
       money: 15,
-      rating: 4.3,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'User interface Design',
-      lessonCount: 22,
+      date: '30 Dec',
       money: 18,
-      rating: 4.6,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'User interface Design',
-      lessonCount: 24,
+      date: '30 Dec',
       money: 25,
-      rating: 4.3,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'User interface Design',
-      lessonCount: 22,
+      date: '30 Dec',
       money: 18,
-      rating: 4.6,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
   ];
 
@@ -48,30 +53,34 @@ class Category {
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'App Design Course',
-      lessonCount: 12,
+      date: '30 Dec',
       money: 25,
-      rating: 4.8,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'Web Design Course',
-      lessonCount: 28,
+      date: '30 Dec',
       money: 208,
-      rating: 4.9,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'App Design Course',
-      lessonCount: 12,
+      date: '30 Dec',
       money: 25,
-      rating: 4.8,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
     Category(
       imagePath: 'assets/ncbs.jpg',
       title: 'Web Design Course',
-      lessonCount: 28,
+      date: '30 Dec',
       money: 208,
-      rating: 4.9,
+      time: '5 PM',
+      location: 'Al Burhan',
     ),
   ];
 }

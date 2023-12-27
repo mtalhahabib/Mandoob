@@ -12,9 +12,6 @@ class DesignCourseHomeScreen extends StatefulWidget {
 }
 
 class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
-  
-  
-
   final ScrollController _scrollController = ScrollController();
 
   CategoryType categoryType = CategoryType.all;
@@ -28,7 +25,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
         backgroundColor: Colors.transparent,
         drawer: Drawer(
           backgroundColor: Color.fromARGB(255, 199, 156, 140),
-          child:DrawerData(),
+          child: DrawerData(),
         ),
         body: Column(
           children: <Widget>[
@@ -42,7 +39,6 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
-                    
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
@@ -50,7 +46,6 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
                             children: <Widget>[
                               // getSearchBarUI(),
                               getCategoryUI(),
-
                             ],
                           );
                         },
@@ -175,7 +170,9 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
               },
             ),
           ),
-          SizedBox(height: 50,)
+          SizedBox(
+            height: 50,
+          )
         ],
       ),
     );

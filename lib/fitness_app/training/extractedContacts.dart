@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:get/get.dart';
+
 class ExtractedContacts extends StatefulWidget {
-  
   List<List<String?>> list;
   ExtractedContacts({Key? key, required this.list}) : super(key: key);
 
@@ -11,15 +11,24 @@ class ExtractedContacts extends StatefulWidget {
 }
 
 class _ExtractedContactsState extends State<ExtractedContacts> {
-Future<void> saveToPhone(list) async {
-    if (await FlutterContacts.requestPermission()) {
-      for (int i = 0; i < list[0].length; i++) {
-        final newContact = Contact()
-          ..name.first = list[0][i]
-          ..phones = [Phone(list[1][i])];
-        await newContact.insert();
+  Future<void> saveToPhone(list) async {
+    try {
+      if (await FlutterContacts.requestPermission()) {
+        for (int i = 0; i < list[0].length; i++) {
+          final newContact = Contact()
+            ..name.first = list[0][i]
+            ..phones = [Phone(list[1][i])];
+          await newContact.insert();
+        }
+        Get.snackbar('Success', 'Contacts Saved Successfully');
+        Navigator.pop(context);
+      } else {
+        Get.snackbar('Permission Denied', 'Allow Permission to Write Contacts');
+        Navigator.pop(context);
       }
-      print('Done with it');
+    } catch (e) {
+      Get.snackbar('Error', '${e.toString()}}');
+      Navigator.pop(context);
     }
   }
 
@@ -29,7 +38,10 @@ Future<void> saveToPhone(list) async {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('CheckList',style: TextStyle(color: Colors.brown,fontWeight: FontWeight.bold),),
+          title: Text(
+            'CheckList',
+            style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
+          ),
           actions: [
             TextButton(
                 onPressed: () {
@@ -75,10 +87,12 @@ Future<void> saveToPhone(list) async {
                     child: Center(
                       child: Text(
                         'Save',
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
                     ),
-                  
                   ),
                 )),
           ],
@@ -89,7 +103,10 @@ Future<void> saveToPhone(list) async {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Add Prefix',
-              style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10),
             ),
           ),
           onPressed: () {

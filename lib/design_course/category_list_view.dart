@@ -162,7 +162,7 @@ class CategoryView extends StatelessWidget {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  '${category!.lessonCount} lesson',
+                                                  '${category!.date} ',
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w200,
@@ -176,25 +176,23 @@ class CategoryView extends StatelessWidget {
                                                   child: Row(
                                                     children: <Widget>[
                                                       Text(
-                                                        '${category!.rating}',
+                                                        '${category!.time}',
                                                         textAlign:
                                                             TextAlign.left,
                                                         style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.w200,
-                                                          fontSize: 18,
-                                                          letterSpacing: 0.27,
-                                                          color:
-                                                              DesignCourseAppTheme
-                                                                  .grey,
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          
+                                                          color:Colors.black,
                                                         ),
                                                       ),
                                                       Icon(
-                                                        Icons.star,
+                                                        Icons.alarm,
                                                         color:
                                                             DesignCourseAppTheme
                                                                 .nearlyBlue,
-                                                        size: 20,
+                                                        size: 12,
                                                       ),
                                                     ],
                                                   ),
@@ -213,11 +211,11 @@ class CategoryView extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  '\$${category!.money}',
+                                                  'Rs${category!.money}',
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w600,
-                                                    fontSize: 18,
+                                                    fontSize: 15,
                                                     letterSpacing: 0.27,
                                                     color: DesignCourseAppTheme
                                                         .nearlyBlue,

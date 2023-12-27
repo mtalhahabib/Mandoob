@@ -111,7 +111,7 @@ class HotelListView extends StatelessWidget {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    '${hotelData!.dist.toStringAsFixed(1)}',
+                                                    '${hotelData!.location}',
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
@@ -176,33 +176,7 @@ class HotelListView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 16, top: 8),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(
-                                          'Rs${hotelData!.perNight}',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                        Text(
-                                          '/per Seat',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color:
-                                                  Colors.grey.withOpacity(0.8)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                 
                                 ],
                               ),
                             ),
