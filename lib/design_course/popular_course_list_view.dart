@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_project/controllers/drawerController.dart';
 import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/design_course_app_theme.dart';
 import 'package:web_project/design_course/models/category.dart';
+import 'package:web_project/design_course/organizer/analyticsPage.dart';
 
 class PopularCourseListView extends StatefulWidget {
-  const PopularCourseListView({Key? key, }) : super(key: key);
+  const PopularCourseListView({
+    Key? key,
+  }) : super(key: key);
 
-  
   @override
   _PopularCourseListViewState createState() => _PopularCourseListViewState();
 }
@@ -55,7 +59,6 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
                   );
                   animationController?.forward();
                   return CategoryView(
-                    
                     category: Category.popularCourseList[index],
                     animation: animation,
                     animationController: animationController,
@@ -77,19 +80,18 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
 }
 
 class CategoryView extends StatelessWidget {
-  const CategoryView(
-      {Key? key,
-      this.category,
-      this.animationController,
-      this.animation,
-      })
-      : super(key: key);
+   CategoryView({
+    Key? key,
+    this.category,
+    this.animationController,
+    this.animation,
+  }) : super(key: key);
 
-  
   final Category? category;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
+  final drawerController = Get.put(DrawerViewModel());
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -102,21 +104,28 @@ class CategoryView extends StatelessWidget {
                 0.0, 50 * (1.0 - animation!.value), 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
-              onTap: (){
-                 Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseInfoScreen(
-          image: category!.imagePath,
-          title: category!.title,
-          date: category!.date,
-          time: category!.time,
-          location: category!.location,
-          money: category!.money,
-
-        ),
-      ),
-    );
+              onTap: () {
+                drawerController.isAttendee.value?
+                Navigator.push<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (BuildContext context) => CourseInfoScreen(
+                      image: category!.imagePath,
+                      title: category!.title,
+                      date: category!.date,
+                      time: category!.time,
+                      location: category!.location,
+                      money: category!.money,
+                    ),
+                  ),
+                ):Navigator.push<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (BuildContext context) => AnalyticsPage(
+                      image: category!.imagePath,
+                    ),
+                  ),
+                );
               },
               child: Container(
                 child: Padding(
@@ -179,10 +188,13 @@ class CategoryView extends StatelessWidget {
                                         height: 5,
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-
-                                          Icon(Icons.calendar_month,color: Colors.grey,),
+                                          Icon(
+                                            Icons.calendar_month,
+                                            color: Colors.grey,
+                                          ),
                                           Text(
                                             "${category!.date}",
                                             style: TextStyle(
@@ -193,7 +205,10 @@ class CategoryView extends StatelessWidget {
                                           SizedBox(
                                             width: 20,
                                           ),
-                                           Icon(Icons.alarm,color: Colors.grey,),
+                                          Icon(
+                                            Icons.alarm,
+                                            color: Colors.grey,
+                                          ),
                                           Text(
                                             "${category!.time}",
                                             style: TextStyle(
@@ -203,7 +218,11 @@ class CategoryView extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             width: 20,
-                                          ), Icon(Icons.location_searching,color: Colors.grey,),
+                                          ),
+                                          Icon(
+                                            Icons.location_searching,
+                                            color: Colors.grey,
+                                          ),
                                           Text(
                                             "${category!.location}",
                                             style: TextStyle(
