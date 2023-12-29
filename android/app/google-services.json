@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "714808148376",
+    "project_id": "mandoob-c8588",
+    "storage_bucket": "mandoob-c8588.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714808148376:android:206a96a264e8ac24f7ebed",
+        "android_client_info": {
+          "package_name": "com.example.web_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC58YewKJmUyNMtvqcV9Nv1TC1Mxw1R0Mw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

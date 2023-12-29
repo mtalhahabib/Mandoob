@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:web_project/Auth/loginPage.dart';
 
 class CenterNextButton extends StatelessWidget {
   final AnimationController animationController;
@@ -145,12 +146,20 @@ class CenterNextButton extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.brown,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    ),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

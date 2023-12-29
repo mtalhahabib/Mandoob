@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:web_project/controllers/signUpController.dart';
 
-class WelcomeView extends StatelessWidget {
+class WelcomeView extends StatefulWidget {
   final AnimationController animationController;
-  const WelcomeView({Key? key, required this.animationController})
+   WelcomeView({Key? key, required this.animationController})
       : super(key: key);
 
+  @override
+  State<WelcomeView> createState() => _WelcomeViewState();
+}
+
+class _WelcomeViewState extends State<WelcomeView> {
+
+
+final signUpController = Get.put(SignUpController()); 
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     final _firstHalfAnimation =
         Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)).animate(
       CurvedAnimation(
-        parent: animationController,
+        parent: widget.animationController,
         curve: Interval(
           0.6,
           0.8,
@@ -21,7 +37,7 @@ class WelcomeView extends StatelessWidget {
     final _secondHalfAnimation =
         Tween<Offset>(begin: Offset(0, 0), end: Offset(-1, 0)).animate(
       CurvedAnimation(
-        parent: animationController,
+        parent: widget.animationController,
         curve: Interval(
           0.8,
           1.0,
@@ -33,7 +49,7 @@ class WelcomeView extends StatelessWidget {
     final _welcomeFirstHalfAnimation =
         Tween<Offset>(begin: Offset(2, 0), end: Offset(0, 0))
             .animate(CurvedAnimation(
-      parent: animationController,
+      parent: widget.animationController,
       curve: Interval(
         0.6,
         0.8,
@@ -44,7 +60,7 @@ class WelcomeView extends StatelessWidget {
     final _welcomeImageAnimation =
         Tween<Offset>(begin: Offset(4, 0), end: Offset(0, 0))
             .animate(CurvedAnimation(
-      parent: animationController,
+      parent: widget.animationController,
       curve: Interval(
         0.6,
         0.8,
@@ -57,37 +73,55 @@ class WelcomeView extends StatelessWidget {
         position: _secondHalfAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 100),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SlideTransition(
-                position: _welcomeImageAnimation,
-                child: Container(
-                  constraints: BoxConstraints(maxWidth: 350, maxHeight: 350),
-                  child: Image.asset(
-                    'assets/alhamd.png',
-                    fit: BoxFit.contain,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height:76,),
+                  Text('سائن اپ !!',style: TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'irregular',
+                    color: Colors.brown
+                  
+                  ),),
+                  SizedBox(height: 26,),
+                  TextFormField(
+                  controller: signUpController.nameController.value,
+                  decoration: InputDecoration(labelText: 'Name',
+                  border: OutlineInputBorder()),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: signUpController.emailController.value,
+                  decoration: InputDecoration(labelText: 'Email',
+                  border: OutlineInputBorder()),
+                  keyboardType: TextInputType.emailAddress,
+               
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: signUpController.passwordController.value,
+                  decoration: InputDecoration(labelText: 'Password',
+                  border: OutlineInputBorder()),
+                  obscureText: true,
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller:signUpController.confirmPasswordController.value,
+                 
+                  decoration: InputDecoration(labelText: 'Confirm Password',
+                  border: OutlineInputBorder()
                   ),
+                  obscureText: true,
                 ),
+                ],
               ),
-              SlideTransition(
-                position: _welcomeFirstHalfAnimation,
-                child: Text(
-                  "Welcome",
-                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(left: 64, right: 64, top: 16, bottom: 16),
-                child: Text(
-                  "Stay organised and live stress-free with you-do app",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        )
       ),
     );
   }

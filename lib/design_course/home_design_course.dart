@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_project/Auth/loginPage.dart';
 import 'package:web_project/controllers/drawerController.dart';
+import 'package:web_project/controllers/loginController.dart';
 import 'package:web_project/design_course/category_list_view.dart';
 import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/drawer.dart';
@@ -19,7 +21,9 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
 
   CategoryType categoryType = CategoryType.all;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  final drawerController=Get.put(DrawerViewModel());
+  final drawerController = Get.put(DrawerViewModel());
+  
+  final loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,16 +87,17 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
   }
 
   Widget getCategoryUI() {
-    return Obx(()=>
-      Column(
+    return Obx(
+      () => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 18.0, left: 18, right: 16),
             child: Text(
-    drawerController.isAttendee.value?
-              'Category':'You are in Organizer Mode!!',
+              drawerController.isAttendee.value
+                  ? 'Category'
+                  : 'You are in Organizer Mode!!',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -105,94 +110,94 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
           const SizedBox(
             height: 16,
           ),
-          drawerController.isAttendee.value?
-          Column(
-            children: [
-              Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: <Widget>[
-                  getButtonUI(CategoryType.all, categoryType == CategoryType.all),
-                  const SizedBox(
-                    width: 10,
+          drawerController.isAttendee.value
+              ? Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: <Widget>[
+                            getButtonUI(CategoryType.all,
+                                categoryType == CategoryType.all),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            getButtonUI(CategoryType.ui,
+                                categoryType == CategoryType.ui),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            getButtonUI(CategoryType.coding,
+                                categoryType == CategoryType.coding),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            getButtonUI(CategoryType.basic,
+                                categoryType == CategoryType.basic),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            getButtonUI(CategoryType.drive,
+                                categoryType == CategoryType.drive),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            getButtonUI(CategoryType.entertainment,
+                                categoryType == CategoryType.entertainment),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    CategoryListView(),
+                  ],
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Card(
+                    elevation: 10,
+                    color: HexColor('#612802'),
+                    child: Container(
+                      height: 70,
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CreateEvent(),
+                              ),
+                            );
+                          },
+                          child: Center(
+                              child: Text(
+                            'Create Event',
+                            style: TextStyle(fontSize: 30, color: Colors.white),
+                          ))),
+                    ),
                   ),
-                  getButtonUI(CategoryType.ui, categoryType == CategoryType.ui),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  getButtonUI(
-                      CategoryType.coding, categoryType == CategoryType.coding),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  getButtonUI(
-                      CategoryType.basic, categoryType == CategoryType.basic),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  getButtonUI(
-                      CategoryType.drive, categoryType == CategoryType.drive),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  getButtonUI(CategoryType.entertainment,
-                      categoryType == CategoryType.entertainment),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          CategoryListView(
-           
-          ),
-            ],
-          )
-        :Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Card(
-            elevation: 10,
-            color:HexColor('#612802') ,
-            child: Container(
-              
-              height:70,
-              width: MediaQuery.of(context).size.width*1,
-              child: 
-            InkWell(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateEvent(),
-                  ),
-                );
-              }
-              ,
-              
-              child: Center(child: Text('Create Event',style: TextStyle(fontSize: 30,color: Colors.white),))
-            ),),
-        
-          ),
-        ),
+                ),
         ],
       ),
     );
   }
 
   Widget getPopularCourseUI() {
-    return Obx(()=>
-       Padding(
+    return Obx(
+      () => Padding(
         padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              drawerController.isAttendee.value?
-              'Popular Events':'Events You are Organizing',
+              drawerController.isAttendee.value
+                  ? 'Popular Events'
+                  : 'Events You are Organizing',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -202,9 +207,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
               ),
             ),
             Flexible(
-              child: PopularCourseListView(
-                
-              ),
+              child: PopularCourseListView(),
             ),
             SizedBox(
               height: 50,
@@ -406,27 +409,30 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
           InkWell(
             onTap: () {
               showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-             Container(
-              width: MediaQuery.of(context).size.width*1,
-              child:InkWell(
-                onTap: (){
-                  Navigator.pop(context);
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            width: MediaQuery.of(context).size.width * 1,
+                            child: InkWell(
+                                onTap: () {
+                                  loginController.logOutUser(context);
+                                },
+                                child: Center(
+                                    child: Text(
+                                  'Log Out',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ))))
+                      ],
+                    ),
+                  );
                 },
-                child: Center(child: Text('Log Out',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),))
-              )
-             )
-            ],
-          ),
-        );
-      },
-    );
-  
+              );
             },
             child: Container(
               width: 50,

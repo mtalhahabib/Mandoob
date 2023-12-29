@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:web_project/Auth/signUp.dart';
+import 'package:web_project/controllers/signUpController.dart';
 import 'package:web_project/fitness_app/fitness_app_home_screen.dart';
 import 'package:web_project/introduction_animation/components/care_view.dart';
 import 'package:web_project/introduction_animation/components/center_next_button.dart';
@@ -20,6 +23,7 @@ class _IntroductionAnimationScreenState
     extends State<IntroductionAnimationScreen> with TickerProviderStateMixin {
   AnimationController? _animationController;
 
+  final signUpController = Get.put(SignUpController());
   @override
   void initState() {
     _animationController =
@@ -32,6 +36,11 @@ class _IntroductionAnimationScreenState
   void dispose() {
     _animationController?.dispose();
     super.dispose();
+
+    signUpController.nameController.value.dispose();
+    signUpController.emailController.value.dispose();
+    signUpController.passwordController.value.dispose();
+    signUpController.confirmPasswordController.value.dispose();
   }
 
   @override
@@ -112,11 +121,21 @@ class _IntroductionAnimationScreenState
   }
 
   void _signUpClick() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FitnessAppHomeScreen(),
-      ),
-    );
+    if (signUpController.nameController.value.text.isNotEmpty &&
+        signUpController.emailController.value.text.isNotEmpty &&
+        signUpController.passwordController.value.text.isNotEmpty &&
+        signUpController.confirmPasswordController.value.text.isNotEmpty) {
+      if (signUpController.passwordController.value.text ==
+          signUpController.confirmPasswordController.value.text) {
+        signUpController.createUserWithEmailAndPassword(
+            context,
+            signUpController.emailController.value.text.trim(),
+            signUpController.passwordController.value.text.trim());
+      } else {
+        Get.snackbar('Sorry', 'Password and confirm password does not match');
+      }
+    } else {
+      Get.snackbar('Sorry', 'Please fill all the fields');
+    }
   }
 }
