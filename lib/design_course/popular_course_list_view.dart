@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_project/controllers/drawerController.dart';
+import 'package:web_project/database/retrieveEventData.dart';
 import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/design_course_app_theme.dart';
 import 'package:web_project/design_course/models/category.dart';
@@ -26,70 +29,156 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
     super.initState();
   }
 
-  Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
-    return true;
-  }
-
+  final drawerController = Get.put(DrawerViewModel());
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
-      child: FutureBuilder<bool>(
-        future: getData(),
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (!snapshot.hasData) {
-            return const SizedBox();
-          } else {
-            return ListView(
-              padding: const EdgeInsets.all(8),
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              children: List<Widget>.generate(
-                Category.popularCourseList.length,
-                (int index) {
-                  final int count = Category.popularCourseList.length;
-                  final Animation<double> animation =
-                      Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                      parent: animationController!,
-                      curve: Interval((1 / count) * index, 1.0,
-                          curve: Curves.fastOutSlowIn),
+      child: drawerController.isAttendee.value
+          ? StreamBuilder<QuerySnapshot>(
+              stream: RetrieveEvents().retrieveEventData(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: Text('No Data to Display'),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.brown,
                     ),
                   );
-                  animationController?.forward();
-                  return CategoryView(
-                    category: Category.popularCourseList[index],
-                    animation: animation,
-                    animationController: animationController,
+                } else if (snapshot.hasData) {
+                  final eventList = snapshot.data!.docs;
+                  return ListView(
+                    padding: const EdgeInsets.all(8),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    children: List<Widget>.generate(
+                      eventList.length,
+                      (int index) {
+                        final int count = Category.popularCourseList.length;
+                        final Animation<double> animation =
+                            Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animationController!,
+                            curve: Interval((1 / count) * index, 1.0,
+                                curve: Curves.fastOutSlowIn),
+                          ),
+                        );
+                        animationController?.forward();
+                        final eventMap =
+                            eventList[index].data() as Map<String, dynamic>;
+
+                        return CategoryView(
+                          eventMap: eventMap,
+                          animation: animation,
+                          animationController: animationController,
+                        );
+                      },
+                    ),
+                    // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //   crossAxisCount: 1,
+                    //   mainAxisSpacing: 32.0,
+                    //   crossAxisSpacing: 32.0,
+                    //   childAspectRatio: 0.8,
+                    // ),
                   );
-                },
-              ),
-              // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //   crossAxisCount: 1,
-              //   mainAxisSpacing: 32.0,
-              //   crossAxisSpacing: 32.0,
-              //   childAspectRatio: 0.8,
-              // ),
-            );
-          }
-        },
-      ),
+                } else {
+                  return Center(
+                    child: Text('-------'),
+                  );
+                }
+              },
+            )
+          : StreamBuilder<QuerySnapshot>(
+              stream: RetrieveEvents().retrieveEventData(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: Text('No Data to Display'),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.brown,
+                    ),
+                  );
+                } else if (snapshot.hasData) {
+                  final eventList = snapshot.data!.docs;
+                  return ListView(
+                    padding: const EdgeInsets.all(8),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    children: List<Widget>.generate(
+                      eventList.length,
+                      (int index) {
+                        final int count = Category.popularCourseList.length;
+                        final Animation<double> animation =
+                            Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animationController!,
+                            curve: Interval((1 / count) * index, 1.0,
+                                curve: Curves.fastOutSlowIn),
+                          ),
+                        );
+                        animationController?.forward();
+                        final eventMap =
+                            eventList[index].data() as Map<String, dynamic>;
+                        if (eventMap['OrganizerID'] ==
+                            FirebaseAuth.instance.currentUser!.uid) {
+                          return CategoryView(
+                            eventMap: eventMap,
+                            animation: animation,
+                            animationController: animationController,
+                          );
+                        }else{
+                          return Container();
+                        }
+                      },
+                    ),
+                    // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //   crossAxisCount: 1,
+                    //   mainAxisSpacing: 32.0,
+                    //   crossAxisSpacing: 32.0,
+                    //   childAspectRatio: 0.8,
+                    // ),
+                  );
+                } else {
+                  return Center(
+                    child: Text('-------'),
+                  );
+                }
+              },
+            ),
     );
   }
 }
 
 class CategoryView extends StatelessWidget {
-   CategoryView({
+  CategoryView({
     Key? key,
-    this.category,
+    required this.eventMap,
     this.animationController,
     this.animation,
   }) : super(key: key);
 
-  final Category? category;
+  final Map<String, dynamic> eventMap;
   final AnimationController? animationController;
   final Animation<double>? animation;
+  String userId = FirebaseAuth.instance.currentUser!.uid;
 
   final drawerController = Get.put(DrawerViewModel());
   @override
@@ -105,27 +194,32 @@ class CategoryView extends StatelessWidget {
             child: InkWell(
               splashColor: Colors.transparent,
               onTap: () {
-                drawerController.isAttendee.value?
-                Navigator.push<dynamic>(
-                  context,
-                  MaterialPageRoute<dynamic>(
-                    builder: (BuildContext context) => CourseInfoScreen(
-                      image: category!.imagePath,
-                      title: category!.title,
-                      date: category!.date,
-                      time: category!.time,
-                      location: category!.location,
-                      money: category!.money,
-                    ),
-                  ),
-                ):Navigator.push<dynamic>(
-                  context,
-                  MaterialPageRoute<dynamic>(
-                    builder: (BuildContext context) => AnalyticsPage(
-                      image: category!.imagePath,
-                    ),
-                  ),
-                );
+                drawerController.isAttendee.value
+                    ? Navigator.push<dynamic>(
+                        context,
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) => CourseInfoScreen(
+                            image: eventMap['imagePath'],
+                            title: eventMap['title'],
+                            date: eventMap['date'],
+                            time: eventMap['time'],
+                            location: eventMap['location'],
+                            eventId: eventMap['eventId'],
+                            uid: userId,
+                            money: 0,
+                          ),
+                        ),
+                      )
+                    : Navigator.push<dynamic>(
+                        context,
+                        MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) => AnalyticsPage(
+                            image: eventMap['imagePath'],
+                            names:eventMap['registrations'],
+                            title: eventMap['title'],
+                          ),
+                        ),
+                      );
               },
               child: Container(
                 child: Padding(
@@ -155,8 +249,8 @@ class CategoryView extends StatelessWidget {
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(16.0),
                                     topRight: Radius.circular(16.0)),
-                                child: Image.asset(
-                                  category!.imagePath,
+                                child: Image.network(
+                                  eventMap['imagePath'],
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -178,7 +272,7 @@ class CategoryView extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        category!.title,
+                                        "${eventMap['title']}",
                                         style: TextStyle(
                                             color: HexColor('#2D2D2D'),
                                             fontSize: 16,
@@ -196,7 +290,7 @@ class CategoryView extends StatelessWidget {
                                             color: Colors.grey,
                                           ),
                                           Text(
-                                            "${category!.date}",
+                                            "${eventMap['date']}",
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 15,
@@ -210,7 +304,7 @@ class CategoryView extends StatelessWidget {
                                             color: Colors.grey,
                                           ),
                                           Text(
-                                            "${category!.time}",
+                                            "${eventMap['time']}",
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 15,
@@ -224,7 +318,7 @@ class CategoryView extends StatelessWidget {
                                             color: Colors.grey,
                                           ),
                                           Text(
-                                            "${category!.location}",
+                                            "${eventMap['location']}",
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 15,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:web_project/database/registrationDatabase.dart';
 import 'package:web_project/fitness_app/fitness_app_home_screen.dart';
 
 class SignUpController extends GetxController {
@@ -10,15 +11,15 @@ class SignUpController extends GetxController {
       TextEditingController().obs;
   final Rx<TextEditingController> confirmPasswordController =
       TextEditingController().obs;
-  createUserWithEmailAndPassword(context, email, password) async {
+  createUserWithEmailAndPassword(context, email, password, name) async {
     try {
-      
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
+      final uid = credential.user!.uid;
+      RegistrationDatabase().setUserName(uid, email, name);
       Navigator.push(
         context,
         MaterialPageRoute(

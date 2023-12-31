@@ -36,7 +36,7 @@ class EventNotes extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(image!),
+                  image: NetworkImage(image!),
                   fit: BoxFit.cover,
                 ),
               ),

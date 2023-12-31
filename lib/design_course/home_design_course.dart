@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_project/Auth/loginPage.dart';
 import 'package:web_project/controllers/drawerController.dart';
 import 'package:web_project/controllers/loginController.dart';
+import 'package:web_project/database/registrationDatabase.dart';
+import 'package:web_project/database/retrieveEventData.dart';
 import 'package:web_project/design_course/category_list_view.dart';
 import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/drawer.dart';
@@ -22,7 +25,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
   CategoryType categoryType = CategoryType.all;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final drawerController = Get.put(DrawerViewModel());
-  
+
   final loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
@@ -347,109 +350,117 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
   }
 
   Widget getAppBarUI() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 8, right: 18),
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            onPressed: () => {scaffoldKey.currentState?.openDrawer()},
-            icon: Icon(Icons.menu),
-            color: Colors.brown,
-            iconSize: 30,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
+    final userId=FirebaseAuth.instance.currentUser!.uid;
+    return FutureBuilder(
+      future: RegistrationDatabase().getUserName(userId),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8, right: 18),
+            child: Row(
               children: <Widget>[
-                Row(
-                  children: [
-                    Text(
-                      'Talha',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        letterSpacing: 0.27,
-                        color: DesignCourseAppTheme.darkerText,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '! السلام عليكم',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'irregular',
-                        fontSize: 32,
-                        letterSpacing: 0.27,
-                        color: Colors.brown,
-                      ),
-                    ),
-                  ],
+                IconButton(
+                  onPressed: () => {scaffoldKey.currentState?.openDrawer()},
+                  icon: Icon(Icons.menu),
+                  color: Colors.brown,
+                  iconSize: 30,
                 ),
-                Text(
-                  "Let's find an Event ",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    letterSpacing: 0.2,
-                    color: DesignCourseAppTheme.grey,
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Text(
+                            snapshot.data.toString(),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                              letterSpacing: 0.27,
+                              color: DesignCourseAppTheme.darkerText,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '! السلام عليكم',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'irregular',
+                              fontSize: 32,
+                              letterSpacing: 0.27,
+                              color: Colors.brown,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Let's find an Event ",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          letterSpacing: 0.2,
+                          color: DesignCourseAppTheme.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  child: InkWell(
+                                      onTap: () {
+                                        loginController.logOutUser(context);
+                                      },
+                                      child: Center(
+                                          child: Text(
+                                        'Log Out',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ))))
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    child: ClipOval(
+                      child: Icon(
+                        Icons.settings
+                        
+                             // This ensures the image covers the circular area
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
-          InkWell(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            child: InkWell(
-                                onTap: () {
-                                  loginController.logOutUser(context);
-                                },
-                                child: Center(
-                                    child: Text(
-                                  'Log Out',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ))))
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-            child: Container(
-              width: 50,
-              height: 50,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/prof.png',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit
-                      .cover, // This ensures the image covers the circular area
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+          );
+        } else {
+          return Text('Name');
+        }
+      },
     );
   }
 }

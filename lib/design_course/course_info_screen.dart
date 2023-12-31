@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_project/database/createEventDatabase.dart';
+import 'package:web_project/database/registrationDatabase.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
@@ -9,6 +11,9 @@ class CourseInfoScreen extends StatefulWidget {
       required this.time,
       required this.date,
       required this.location,
+      required this.eventId,
+      required this.uid,
+      
       required this.money})
       : super(key: key);
   final String? image;
@@ -16,6 +21,9 @@ class CourseInfoScreen extends StatefulWidget {
   final String? time;
   final String? date;
   final String? location;
+  final String? eventId;
+  final String? uid;
+  
   final int? money;
 
   @override
@@ -70,7 +78,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
           children: <Widget>[
             Column(
               children: <Widget>[
-                Image.asset(widget.image!),
+                Image.network(widget.image!),
               ],
             ),
             Positioned(
@@ -229,32 +237,78 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     width: 16,
                                   ),
                                   Expanded(
-                                    child: Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        color: DesignCourseAppTheme.nearlyBlue,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Confirmation'),
+                                              content: Text(
+                                                  'Are you sure you want to register?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () async {
+                                                    String attendeeName = await
+                                                        RegistrationDatabase()
+                                                            .getUserName(
+                                                                widget.uid!);
+                                                    RegistrationDatabase()
+                                                        .registerInEvent(
+                                                            widget.uid!,
+                                                            widget.eventId!);
+                                                    Create()
+                                                        .someOneRegistered(
+                                                            widget.eventId!,
+                                                            attendeeName);
+                                                    Navigator.of(context)
+                                                        .pop(); 
+                                                    
+                                                  },
+                                                  child: Text('Register'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    // Handle Cancel button press
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the alert dialog
+                                                    
+                                                  },
+                                                  child: Text('Cancel'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        height: 48,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              DesignCourseAppTheme.nearlyBlue,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(16.0),
+                                          ),
+                                          boxShadow: <BoxShadow>[
+                                            BoxShadow(
+                                                color: DesignCourseAppTheme
+                                                    .nearlyBlue
+                                                    .withOpacity(0.5),
+                                                offset: const Offset(1.1, 1.1),
+                                                blurRadius: 10.0),
+                                          ],
                                         ),
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
+                                        child: Center(
+                                          child: Text(
+                                            'Register Now',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              letterSpacing: 0.0,
                                               color: DesignCourseAppTheme
-                                                  .nearlyBlue
-                                                  .withOpacity(0.5),
-                                              offset: const Offset(1.1, 1.1),
-                                              blurRadius: 10.0),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Register Now',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            letterSpacing: 0.0,
-                                            color: DesignCourseAppTheme
-                                                .nearlyWhite,
+                                                  .nearlyWhite,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -358,14 +412,18 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                   color: DesignCourseAppTheme.nearlyBlue,
                 ),
               ),
-              Icon(Icons.alarm,color: Colors.grey,)
+              Icon(
+                Icons.alarm,
+                color: Colors.grey,
+              )
             ],
           ),
         ),
       ),
     );
   }
-   Widget getDateBoxUI(String text1) {
+
+  Widget getDateBoxUI(String text1) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -396,14 +454,18 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                   color: DesignCourseAppTheme.nearlyBlue,
                 ),
               ),
-              Icon(Icons.calendar_month,color: Colors.grey,)
+              Icon(
+                Icons.calendar_month,
+                color: Colors.grey,
+              )
             ],
           ),
         ),
       ),
     );
   }
-   Widget getLocationBoxUI(String text1) {
+
+  Widget getLocationBoxUI(String text1) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -434,7 +496,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                   color: DesignCourseAppTheme.nearlyBlue,
                 ),
               ),
-              Icon(Icons.location_searching,color: Colors.grey,)
+              Icon(
+                Icons.location_searching,
+                color: Colors.grey,
+              )
             ],
           ),
         ),

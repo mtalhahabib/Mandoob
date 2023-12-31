@@ -130,7 +130,8 @@ class _IntroductionAnimationScreenState
         signUpController.createUserWithEmailAndPassword(
             context,
             signUpController.emailController.value.text.trim(),
-            signUpController.passwordController.value.text.trim());
+            signUpController.passwordController.value.text.trim(),
+            signUpController.nameController.value.text.trim());
       } else {
         Get.snackbar('Sorry', 'Password and confirm password does not match');
       }

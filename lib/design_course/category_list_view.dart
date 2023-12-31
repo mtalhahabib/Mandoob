@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_project/database/retrieveEventData.dart';
 import 'package:web_project/design_course/course_info_screen.dart';
 import 'package:web_project/design_course/design_course_app_theme.dart';
 import 'package:web_project/design_course/models/category.dart';
@@ -24,10 +27,6 @@ class _CategoryListViewState extends State<CategoryListView>
     super.initState();
   }
 
-  Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 50));
-    return true;
-  }
 
   @override
   void dispose() {
@@ -42,21 +41,33 @@ class _CategoryListViewState extends State<CategoryListView>
       child: Container(
         height: 150,
         width: double.infinity,
-        child: FutureBuilder<bool>(
-          future: getData(),
-          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        child: StreamBuilder<QuerySnapshot>(
+          stream: RetrieveEvents().retrieveEventData(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return const SizedBox();
-            } else {
+              return Center(child: Text('No Data to Display'),);
+            } 
+            else if(snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'),);
+            }
+            else if(snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator(color: Colors.brown,),);
+            }
+            
+            else if(snapshot.hasData) {
+
+               final eventList = snapshot.data!.docs;
+
+
               return ListView.builder(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 0, right: 16, left: 16),
-                itemCount: Category.categoryList.length,
+                itemCount: eventList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  final int count = Category.categoryList.length > 10
+                  final int count = eventList.length > 10
                       ? 10
-                      : Category.categoryList.length;
+                      : eventList.length;
                   final Animation<double> animation =
                       Tween<double>(begin: 0.0, end: 1.0).animate(
                           CurvedAnimation(
@@ -64,14 +75,18 @@ class _CategoryListViewState extends State<CategoryListView>
                               curve: Interval((1 / count) * index, 1.0,
                                   curve: Curves.fastOutSlowIn)));
                   animationController?.forward();
-
+                   final eventMap =
+                        eventList[index].data() as Map<String, dynamic>;
                   return CategoryView(
-                    category: Category.categoryList[index],
+                    eventMap: eventMap,
                     animation: animation,
                     animationController: animationController,
                   );
                 },
               );
+            }
+            else {
+              return Center(child: Text('------------'),);
             }
           },
         ),
@@ -81,16 +96,17 @@ class _CategoryListViewState extends State<CategoryListView>
 }
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({
+  CategoryView({
     Key? key,
-    this.category,
+    required this.eventMap,
     this.animationController,
     this.animation,
   }) : super(key: key);
-  final Category? category;
+  final Map<String,dynamic> eventMap;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
+String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -108,12 +124,14 @@ class CategoryView extends StatelessWidget {
                   context,
                   MaterialPageRoute<dynamic>(
                     builder: (BuildContext context) => CourseInfoScreen(
-                      image: category!.imagePath,
-                      title: category!.title,
-                      date: category!.date,
-                      time: category!.time,
-                      location: category!.location,
-                      money: category!.money,
+                      image: eventMap['imagePath'],
+                      title: eventMap['title'],
+                      date: eventMap['date'],
+                      time: eventMap['time'],
+                      location: eventMap['location'],
+                      eventId: eventMap['eventId'],
+                      uid: userId,
+                      money: 0,
                     ),
                   ),
                 );
@@ -148,7 +166,7 @@ class CategoryView extends StatelessWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 16),
                                             child: Text(
-                                              category!.title,
+                                              eventMap['title'],
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -173,7 +191,8 @@ class CategoryView extends StatelessWidget {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  '${category!.date} ',
+                                                  eventMap['date'],
+
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w200,
@@ -187,7 +206,8 @@ class CategoryView extends StatelessWidget {
                                                   child: Row(
                                                     children: <Widget>[
                                                       Text(
-                                                        '${category!.time}',
+                                                        
+                                                        eventMap['time'],
                                                         textAlign:
                                                             TextAlign.left,
                                                         style: TextStyle(
@@ -221,7 +241,7 @@ class CategoryView extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  'Rs${category!.money}',
+                                                  'Rs${0}',
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w600,
@@ -277,7 +297,7 @@ class CategoryView extends StatelessWidget {
                                   const BorderRadius.all(Radius.circular(16.0)),
                               child: AspectRatio(
                                   aspectRatio: 1.0,
-                                  child: Image.asset(category!.imagePath)),
+                                  child: Image.network(eventMap['imagePath'])),
                             )
                           ],
                         ),

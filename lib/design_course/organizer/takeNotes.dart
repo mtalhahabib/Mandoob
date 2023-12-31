@@ -1,9 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_project/database/createEventDatabase.dart';
 
-class TakeNotes extends StatelessWidget {
-  TakeNotes({super.key});
+class TakeNotes extends StatefulWidget {
+  TakeNotes({
+    Key? key,
+    required this.title,
+    required this.date,
+    required this.time,
+    required this.location,
+    required this.imagePath,
+  }) : super(key: key);
+  final String imagePath;
+  final String title;
+  final String time;
+  final String date;
+  final String location;
+
+  @override
+  State<TakeNotes> createState() => _TakeNotesState();
+}
+
+class _TakeNotesState extends State<TakeNotes> {
   TextEditingController controller = TextEditingController();
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,30 +91,51 @@ class TakeNotes extends StatelessWidget {
                     controller.text = value;
                   },
                 ),
-                
               ),
             ),
-            SizedBox(height: 020,),
-             Card(
-                elevation: 10,
-                color: HexColor('#612802'),
-                child: Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width * 0.75,
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TakeNotes()));
-                      },
-                      child: Center(
-                          child: Text(
-                        'Done',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ))),
-                ),
+            SizedBox(
+              height: 020,
+            ),
+            Card(
+              elevation: 10,
+              color: HexColor('#612802'),
+              child: Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: isloading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: Colors.brown,
+                      ))
+                    : InkWell(
+                        onTap: () async {
+                          setState(() {
+                            isloading = true;
+                          });
+                          String imageUrl = await Create()
+                              .uploadImageAndGetUrl(widget.imagePath);
+                          Create().createEvent(
+                              userId,
+                              widget.title,
+                              imageUrl,
+                              widget.date,
+                              widget.time,
+                              widget.location,
+                              controller.text);
+                          Navigator.pop(context);
+
+                          Navigator.pop(context);
+                          setState(() {
+                            isloading = false;
+                          });
+                        },
+                        child: Center(
+                            child: Text(
+                          'Done',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ))),
               ),
+            ),
           ],
         ),
       ),

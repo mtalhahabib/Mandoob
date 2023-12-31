@@ -5,14 +5,14 @@ class AnalyticsPage extends StatefulWidget {
   AnalyticsPage({
     Key? key,
     this.image = '',
-    this.title = 'Title',
-    this.registrationCount = 0,
-    this.names = const ['talha', 'saad'],
+    required this.title,
+    
+    required this.names,
   }) : super(key: key);
   final String? image;
   final String? title;
-  final int? registrationCount;
-  final List<String> names;
+  
+  final List<dynamic> names;
 
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
@@ -28,12 +28,12 @@ class _CourseInfoScreenState extends State<AnalyticsPage> {
           Container(
             height: 200,
             width: MediaQuery.of(context).size.width,
-            child: Image.asset(widget.image!,fit: BoxFit.cover,),
+            child: Image.network(widget.image!,fit: BoxFit.cover,),
           ),
           SizedBox(height: 10,),
           Text(widget.title!,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
           SizedBox(height: 10,),
-          Text('Total Registrations: ${widget.registrationCount}',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+          Text('Total Registrations: ${widget.names.length}',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(top: 8),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,14 +8,14 @@ import 'model/hotel_list_data.dart';
 class HotelListView extends StatelessWidget {
   const HotelListView(
       {Key? key,
-      this.hotelData,
+      required this.eventMap,
       this.animationController,
       this.animation,
       this.callback})
       : super(key: key);
 
   final VoidCallback? callback;
-  final HotelListData? hotelData;
+  final Map<String, dynamic> eventMap;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -55,8 +54,8 @@ class HotelListView extends StatelessWidget {
                           children: <Widget>[
                             AspectRatio(
                               aspectRatio: 1.5,
-                              child: Image.asset(
-                                hotelData!.imagePath,
+                              child: Image.network(
+                                eventMap['imagePath'],
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -79,7 +78,7 @@ class HotelListView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              hotelData!.titleTxt,
+                                              eventMap['title'],
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -93,7 +92,7 @@ class HotelListView extends StatelessWidget {
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  hotelData!.subTxt,
+                                                  eventMap['date'],
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.grey
@@ -111,7 +110,7 @@ class HotelListView extends StatelessWidget {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    '${hotelData!.location}',
+                                                    '${eventMap['location']}}',
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
@@ -129,7 +128,7 @@ class HotelListView extends StatelessWidget {
                                                 children: <Widget>[
                                                   RatingBar(
                                                     initialRating:
-                                                        hotelData!.rating,
+                                                        4,
                                                     direction: Axis.horizontal,
                                                     allowHalfRating: true,
                                                     itemCount: 5,
@@ -162,7 +161,7 @@ class HotelListView extends StatelessWidget {
                                                     },
                                                   ),
                                                   Text(
-                                                    ' ${hotelData!.reviews} FeedBack',
+                                                    ' ${50} FeedBack',
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         color: Colors.grey
@@ -176,7 +175,6 @@ class HotelListView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                 
                                 ],
                               ),
                             ),

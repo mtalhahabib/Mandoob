@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -151,10 +152,19 @@ class _CreateEventPageState extends State<CreateEvent> {
                   width: MediaQuery.of(context).size.width * 0.75,
                   child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TakeNotes()));
+                        if (imagePath.isNotEmpty) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TakeNotes(
+                                      title: title,
+                                      date: date,
+                                      time: time,
+                                      location: location,
+                                      imagePath: imagePath)));
+                        } else {
+                          Get.snackbar('Sorry', 'Please Upload Poster');
+                        }
                       },
                       child: Center(
                           child: Text(
