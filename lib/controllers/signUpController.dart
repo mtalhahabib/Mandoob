@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_project/database/registrationDatabase.dart';
-import 'package:web_project/fitness_app/fitness_app_home_screen.dart';
+import 'package:web_project/central_start_of_app/central_home_screen.dart';
 
 class SignUpController extends GetxController {
   final Rx<TextEditingController> nameController = TextEditingController().obs;

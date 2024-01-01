@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_project/Auth/signUp.dart';
 import 'package:web_project/controllers/signUpController.dart';
-import 'package:web_project/fitness_app/fitness_app_home_screen.dart';
+import 'package:web_project/central_start_of_app/central_home_screen.dart';
 import 'package:web_project/introduction_animation/components/care_view.dart';
 import 'package:web_project/introduction_animation/components/center_next_button.dart';
 import 'package:web_project/introduction_animation/components/mood_diary_vew.dart';

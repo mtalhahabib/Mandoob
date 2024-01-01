@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_project/controllers/loginController.dart';
-import 'package:web_project/fitness_app/fitness_app_home_screen.dart';
+import 'package:web_project/central_start_of_app/central_home_screen.dart';
 import 'package:web_project/introduction_animation/introduction_animation_screen.dart';
 
 class LoginPage extends StatefulWidget {
