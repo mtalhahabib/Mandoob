@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     
     <application
-        android:label="web_project"
+        android:label="Mandoob"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
