@@ -123,7 +123,7 @@ String userId = FirebaseAuth.instance.currentUser!.uid;
                 Navigator.push<dynamic>(
                   context,
                   MaterialPageRoute<dynamic>(
-                    builder: (BuildContext context) => CourseInfoScreen(
+                    builder: (BuildContext context) => EventInfoScreen(
                       image: eventMap['imagePath'],
                       title: eventMap['title'],
                       date: eventMap['date'],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class RelaxView extends StatelessWidget {
+class DescriptionView extends StatelessWidget {
   final AnimationController animationController;
 
-  const RelaxView({Key? key, required this.animationController})
+  const DescriptionView({Key? key, required this.animationController})
       : super(key: key);
 
   @override

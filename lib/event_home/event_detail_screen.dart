@@ -3,8 +3,8 @@ import 'package:web_project/database/createEventDatabase.dart';
 import 'package:web_project/database/registrationDatabase.dart';
 import 'event_theme.dart';
 
-class CourseInfoScreen extends StatefulWidget {
-  CourseInfoScreen(
+class EventInfoScreen extends StatefulWidget {
+  EventInfoScreen(
       {Key? key,
       required this.image,
       required this.title,
@@ -30,7 +30,7 @@ class CourseInfoScreen extends StatefulWidget {
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
 }
 
-class _CourseInfoScreenState extends State<CourseInfoScreen>
+class _CourseInfoScreenState extends State<EventInfoScreen>
     with TickerProviderStateMixin {
   final double infoHeight = 364.0;
   AnimationController? animationController;

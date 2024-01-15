@@ -7,19 +7,19 @@ import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'central_app_theme.dart';
 import 'my_diary/my_diary_screen.dart';
 
-class FitnessAppHomeScreen extends StatefulWidget {
+class AppHomeScreen extends StatefulWidget {
   @override
-  _FitnessAppHomeScreenState createState() => _FitnessAppHomeScreenState();
+  _AppHomeScreenState createState() => _AppHomeScreenState();
 }
 
-class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
+class _AppHomeScreenState extends State<AppHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
 
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
   Widget tabBody = Container(
-    color: FitnessAppTheme.background,
+    color: AppTheme.background,
   );
 
   @override
@@ -31,7 +31,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = DesignCourseHomeScreen();
+    tabBody = DesignEventHomeScreen();
     super.initState();
   }
 
@@ -44,7 +44,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: FitnessAppTheme.background,
+      color: AppTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: FutureBuilder<bool>(
@@ -87,7 +87,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = DesignCourseHomeScreen();
+                  tabBody = DesignEventHomeScreen();
                 });
               });
             } else if (index == 1) {

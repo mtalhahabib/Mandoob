@@ -14,12 +14,12 @@ import 'package:web_project/event_home/organizer/createEvent.dart';
 import 'package:web_project/event_home/popular_event_list_view.dart';
 import 'event_theme.dart';
 
-class DesignCourseHomeScreen extends StatefulWidget {
+class DesignEventHomeScreen extends StatefulWidget {
   @override
   _DesignCourseHomeScreenState createState() => _DesignCourseHomeScreenState();
 }
 
-class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
+class _DesignCourseHomeScreenState extends State<DesignEventHomeScreen> {
   final ScrollController _scrollController = ScrollController();
 
   CategoryType categoryType = CategoryType.all;
@@ -210,7 +210,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
               ),
             ),
             Flexible(
-              child: PopularCourseListView(),
+              child: PopularEventListView(),
             ),
             SizedBox(
               height: 50,

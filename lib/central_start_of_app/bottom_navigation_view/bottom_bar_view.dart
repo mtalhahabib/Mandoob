@@ -46,7 +46,7 @@ class _BottomBarViewState extends State<BottomBarView>
             return Transform(
               transform: Matrix4.translationValues(0.0, 0.0, 0.0),
               child: PhysicalShape(
-                color: FitnessAppTheme.white,
+                color: AppTheme.white,
                 elevation: 16.0,
                 clipper: TabClipper(
                     radius: Tween<double>(begin: 0.0, end: 1.0)
@@ -144,10 +144,10 @@ class _BottomBarViewState extends State<BottomBarView>
                     child: Container(
                       // alignment: Alignment.center,s
                       decoration: BoxDecoration(
-                        color: FitnessAppTheme.nearlyDarkBlue,
+                        color: AppTheme.nearlyDarkBlue,
                         gradient: LinearGradient(
                             colors: [
-                              FitnessAppTheme.nearlyDarkBlue,
+                              AppTheme.nearlyDarkBlue,
                               Color.fromARGB(255, 145, 112, 100),
                             ],
                             begin: Alignment.topLeft,
@@ -155,7 +155,7 @@ class _BottomBarViewState extends State<BottomBarView>
                         shape: BoxShape.circle,
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                              color: FitnessAppTheme.nearlyDarkBlue
+                              color: AppTheme.nearlyDarkBlue
                                   .withOpacity(0.4),
                               offset: const Offset(8.0, 16.0),
                               blurRadius: 16.0),
@@ -170,7 +170,7 @@ class _BottomBarViewState extends State<BottomBarView>
                           onTap: widget.addClick,
                           child: Icon(
                             Icons.add,
-                            color: FitnessAppTheme.white,
+                            color: AppTheme.white,
                             size: 32,
                           ),
                         ),
@@ -274,7 +274,7 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                       width: 18,
                       height: 18,
                       decoration: BoxDecoration(
-                        color: FitnessAppTheme.nearlyDarkBlue,
+                        color: AppTheme.nearlyDarkBlue,
                        shape: BoxShape.circle,
                       ),
                     ),
@@ -295,7 +295,7 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                       width: 14,
                       height: 14,
                       decoration: BoxDecoration(
-                        color: FitnessAppTheme.nearlyDarkBlue,
+                        color: AppTheme.nearlyDarkBlue,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -316,7 +316,7 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                       width: 16,
                       height: 16,
                       decoration: BoxDecoration(
-                        color: FitnessAppTheme.nearlyDarkBlue,
+                        color: AppTheme.nearlyDarkBlue,
                         shape: BoxShape.circle,
                       ),
                     ),

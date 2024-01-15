@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_project/controllers/loginController.dart';
 import 'package:web_project/central_start_of_app/central_home_screen.dart';
-import 'package:web_project/introduction_animation/introduction_animation_screen.dart';
+import 'package:web_project/introduction_animation/introduction_screen.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => IntroductionAnimationScreen(),
+                          builder: (context) => IntroductionScreen(),
                         ),
                       );
                     },

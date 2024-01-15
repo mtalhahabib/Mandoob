@@ -23,7 +23,7 @@ class SignUpController extends GetxController {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => FitnessAppHomeScreen(),
+          builder: (context) => AppHomeScreen(),
         ),
       );
     } on FirebaseAuthException catch (e) {

@@ -10,8 +10,8 @@ import 'package:web_project/event_home/event_theme.dart';
 import 'package:web_project/event_home/models/category.dart';
 import 'package:web_project/event_home/organizer/analyticsPage.dart';
 
-class PopularCourseListView extends StatefulWidget {
-  const PopularCourseListView({
+class PopularEventListView extends StatefulWidget {
+  const PopularEventListView({
     Key? key,
   }) : super(key: key);
 
@@ -19,7 +19,7 @@ class PopularCourseListView extends StatefulWidget {
   _PopularCourseListViewState createState() => _PopularCourseListViewState();
 }
 
-class _PopularCourseListViewState extends State<PopularCourseListView>
+class _PopularCourseListViewState extends State<PopularEventListView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   @override
@@ -198,7 +198,7 @@ class CategoryView extends StatelessWidget {
                     ? Navigator.push<dynamic>(
                         context,
                         MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => CourseInfoScreen(
+                          builder: (BuildContext context) => EventInfoScreen(
                             image: eventMap['imagePath'],
                             title: eventMap['title'],
                             date: eventMap['date'],

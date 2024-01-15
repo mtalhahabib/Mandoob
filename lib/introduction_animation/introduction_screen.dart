@@ -6,21 +6,21 @@ import 'package:web_project/central_start_of_app/central_home_screen.dart';
 import 'package:web_project/introduction_animation/components/care_view.dart';
 import 'package:web_project/introduction_animation/components/center_next_button.dart';
 import 'package:web_project/introduction_animation/components/mood_diary_vew.dart';
-import 'package:web_project/introduction_animation/components/relax_view.dart';
+import 'package:web_project/introduction_animation/components/description_view.dart';
 import 'package:web_project/introduction_animation/components/splash_view.dart';
 import 'package:web_project/introduction_animation/components/top_back_skip_view.dart';
 import 'package:web_project/introduction_animation/components/welcome_view.dart';
 
-class IntroductionAnimationScreen extends StatefulWidget {
-  const IntroductionAnimationScreen({Key? key}) : super(key: key);
+class IntroductionScreen extends StatefulWidget {
+  const IntroductionScreen({Key? key}) : super(key: key);
 
   @override
-  _IntroductionAnimationScreenState createState() =>
-      _IntroductionAnimationScreenState();
+  _IntroductionScreenState createState() =>
+      _IntroductionScreenState();
 }
 
-class _IntroductionAnimationScreenState
-    extends State<IntroductionAnimationScreen> with TickerProviderStateMixin {
+class _IntroductionScreenState
+    extends State<IntroductionScreen> with TickerProviderStateMixin {
   AnimationController? _animationController;
 
   final signUpController = Get.put(SignUpController());
@@ -54,7 +54,7 @@ class _IntroductionAnimationScreenState
             SplashView(
               animationController: _animationController!,
             ),
-            RelaxView(
+            DescriptionView(
               animationController: _animationController!,
             ),
             CareView(
