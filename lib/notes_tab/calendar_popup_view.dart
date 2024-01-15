@@ -81,7 +81,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                     padding: const EdgeInsets.all(24.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: HotelAppTheme.buildLightTheme().backgroundColor,
+                        color: NotesAppTheme.buildLightTheme().backgroundColor,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(24.0)),
                         boxShadow: <BoxShadow>[
@@ -136,7 +136,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                 Container(
                                   height: 74,
                                   width: 1,
-                                  color: HotelAppTheme.buildLightTheme()
+                                  color: NotesAppTheme.buildLightTheme()
                                       .dividerColor,
                                 ),
                                 Expanded(
@@ -192,7 +192,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                               child: Container(
                                 height: 48,
                                 decoration: BoxDecoration(
-                                  color: HotelAppTheme.buildLightTheme()
+                                  color: NotesAppTheme.buildLightTheme()
                                       .primaryColor,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(24.0)),

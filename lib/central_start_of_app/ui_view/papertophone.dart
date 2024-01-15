@@ -6,11 +6,11 @@ import 'package:web_project/main.dart';
 import 'package:flutter/material.dart';
 import '../central_app_theme.dart';
 
-class WorkoutView extends StatelessWidget {
+class PapertoPhoneView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
 
-  WorkoutView({Key? key, this.animationController, this.animation})
+  PapertoPhoneView({Key? key, this.animationController, this.animation})
       : super(key: key);
   final contactsController = Get.put(ContactsViewModel());
   final ImagePicker picker = ImagePicker();

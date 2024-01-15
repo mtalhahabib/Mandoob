@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:web_project/central_start_of_app/central_app_theme.dart';
 import 'package:web_project/central_start_of_app/my_diary/reminderAlaram_list_view.dart';
-import 'package:web_project/central_start_of_app/my_diary/water_view.dart';
-import 'package:web_project/central_start_of_app/ui_view/body_measurement.dart';
-import 'package:web_project/central_start_of_app/ui_view/glass_view.dart';
-import 'package:web_project/central_start_of_app/ui_view/mediterranean_diet_view.dart';
+import 'package:web_project/central_start_of_app/ui_view/time_leftView.dart';
 import 'package:web_project/central_start_of_app/ui_view/title_view.dart';
 
 class MyDiaryScreen extends StatefulWidget {
@@ -72,7 +69,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
       ),
     );
     listViews.add(
-      MediterranesnDietView(
+      TimeLeftView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
@@ -93,7 +90,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     );
 
     listViews.add(
-      MealsListView(
+      ReminderListView(
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,

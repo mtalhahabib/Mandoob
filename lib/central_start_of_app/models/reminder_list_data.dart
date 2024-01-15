@@ -1,5 +1,5 @@
-class MealsListData {
-  MealsListData({
+class EventListData {
+  EventListData({
     this.imagePath = '',
     this.titleTxt = '',
     this.startColor = '',
@@ -15,8 +15,8 @@ class MealsListData {
   List<String>? meals;
   String kacl;
 
-  static List<MealsListData> tabIconsList = <MealsListData>[
-    MealsListData(
+  static List<EventListData> tabIconsList = <EventListData>[
+    EventListData(
       imagePath: 'assets/alarm.png',
       titleTxt: 'Glory of the Glorious',
       kacl: '5:30',
@@ -24,7 +24,7 @@ class MealsListData {
       startColor: '#612802',
       endColor: '#f29c63',
     ),
-    MealsListData(
+    EventListData(
       imagePath: 'assets/alarm.png',
       titleTxt: 'Bazme Rekhta',
       kacl: '5:30',
@@ -32,7 +32,7 @@ class MealsListData {
       startColor: '#612802',
       endColor: '#f29c63',
     ),
-    MealsListData(
+    EventListData(
       imagePath: 'assets/alarm.png',
       titleTxt: 'Death of Morality',
       kacl: '5:30',
@@ -40,7 +40,7 @@ class MealsListData {
       startColor: '#612802',
       endColor: '#f29c63',
     ),
-    MealsListData(
+    EventListData(
       imagePath: 'assets/alarm.png',
       titleTxt: 'Add Reminder!',
       kacl: '',

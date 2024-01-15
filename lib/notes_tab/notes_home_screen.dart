@@ -46,7 +46,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: HotelAppTheme.buildLightTheme(),
+      data: NotesAppTheme.buildLightTheme(),
       child: Container(
         child: Scaffold(
           body: Stack(
@@ -103,7 +103,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                         },
                         body: Container(
                           color:
-                              HotelAppTheme.buildLightTheme().backgroundColor,
+                              NotesAppTheme.buildLightTheme().backgroundColor,
                           child: FutureBuilder<dynamic>(
                               future: RetrieveEvents().retrieveMyEvents(userId),
                               builder: (context, snapshot) {
@@ -301,7 +301,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
               padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
               child: Container(
                 decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().backgroundColor,
+                  color: NotesAppTheme.buildLightTheme().backgroundColor,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(38.0),
                   ),
@@ -320,7 +320,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                     style: const TextStyle(
                       fontSize: 18,
                     ),
-                    cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
+                    cursorColor: NotesAppTheme.buildLightTheme().primaryColor,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Search for notes',
@@ -332,7 +332,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
           ),
           Container(
             decoration: BoxDecoration(
-              color: HotelAppTheme.buildLightTheme().primaryColor,
+              color: NotesAppTheme.buildLightTheme().primaryColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(38.0),
               ),
@@ -356,7 +356,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(FontAwesomeIcons.magnifyingGlass,
                       size: 20,
-                      color: HotelAppTheme.buildLightTheme().backgroundColor),
+                      color: NotesAppTheme.buildLightTheme().backgroundColor),
                 ),
               ),
             ),
@@ -376,7 +376,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
           child: Container(
             height: 24,
             decoration: BoxDecoration(
-              color: HotelAppTheme.buildLightTheme().backgroundColor,
+              color: NotesAppTheme.buildLightTheme().backgroundColor,
               boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.2),
@@ -387,7 +387,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
           ),
         ),
         Container(
-          color: HotelAppTheme.buildLightTheme().backgroundColor,
+          color: NotesAppTheme.buildLightTheme().backgroundColor,
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
@@ -438,7 +438,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(Icons.sort,
-                                color: HotelAppTheme.buildLightTheme()
+                                color: NotesAppTheme.buildLightTheme()
                                     .primaryColor),
                           ),
                         ],
@@ -485,7 +485,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
   Widget getAppBarUI() {
     return Container(
       decoration: BoxDecoration(
-        color: HotelAppTheme.buildLightTheme().backgroundColor,
+        color: NotesAppTheme.buildLightTheme().backgroundColor,
         boxShadow: <BoxShadow>[
           BoxShadow(
               color: Colors.grey.withOpacity(0.2),

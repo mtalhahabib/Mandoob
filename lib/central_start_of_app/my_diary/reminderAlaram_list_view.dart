@@ -6,8 +6,8 @@ import 'package:web_project/central_start_of_app/models/reminder_list_data.dart'
 
 import '../../main.dart';
 
-class MealsListView extends StatefulWidget {
-  const MealsListView(
+class ReminderListView extends StatefulWidget {
+  const ReminderListView(
       {Key? key, this.mainScreenAnimationController, this.mainScreenAnimation})
       : super(key: key);
 
@@ -18,10 +18,10 @@ class MealsListView extends StatefulWidget {
   _MealsListViewState createState() => _MealsListViewState();
 }
 
-class _MealsListViewState extends State<MealsListView>
+class _MealsListViewState extends State<ReminderListView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<MealsListData> mealsListData = MealsListData.tabIconsList;
+  List<EventListData> eventListData = EventListData.tabIconsList;
 
   @override
   void initState() {
@@ -57,11 +57,11 @@ class _MealsListViewState extends State<MealsListView>
               child: ListView.builder(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 0, right: 16, left: 16),
-                itemCount: mealsListData.length,
+                itemCount: eventListData.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final int count =
-                      mealsListData.length > 10 ? 10 : mealsListData.length;
+                      eventListData.length > 10 ? 10 : eventListData.length;
                   final Animation<double> animation =
                       Tween<double>(begin: 0.0, end: 1.0).animate(
                           CurvedAnimation(
@@ -70,8 +70,8 @@ class _MealsListViewState extends State<MealsListView>
                                   curve: Curves.fastOutSlowIn)));
                   animationController?.forward();
 
-                  return MealsView(
-                    mealsListData: mealsListData[index],
+                  return ReminderView(
+                    eventListData: eventListData[index],
                     animation: animation,
                     animationController: animationController!,
                   );
@@ -85,12 +85,12 @@ class _MealsListViewState extends State<MealsListView>
   }
 }
 
-class MealsView extends StatelessWidget {
-  const MealsView(
-      {Key? key, this.mealsListData, this.animationController, this.animation})
+class ReminderView extends StatelessWidget {
+  const ReminderView(
+      {Key? key, this.eventListData, this.animationController, this.animation})
       : super(key: key);
 
-  final MealsListData? mealsListData;
+  final EventListData? eventListData;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -115,15 +115,15 @@ class MealsView extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                              color: HexColor(mealsListData!.endColor)
+                              color: HexColor(eventListData!.endColor)
                                   .withOpacity(0.6),
                               offset: const Offset(1.1, 4.0),
                               blurRadius: 8.0),
                         ],
                         gradient: LinearGradient(
                           colors: <HexColor>[
-                            HexColor(mealsListData!.startColor),
-                            HexColor(mealsListData!.endColor),
+                            HexColor(eventListData!.startColor),
+                            HexColor(eventListData!.endColor),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -143,7 +143,7 @@ class MealsView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              mealsListData!.titleTxt,
+                              eventListData!.titleTxt,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: AppTheme.fontName,
@@ -162,7 +162,7 @@ class MealsView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      mealsListData!.meals!.join('\n'),
+                                      eventListData!.meals!.join('\n'),
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontName,
                                         fontWeight: FontWeight.w500,
@@ -175,13 +175,13 @@ class MealsView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            mealsListData?.kacl != ''
+                            eventListData?.kacl != ''
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: <Widget>[
                                       Text(
-                                        mealsListData!.kacl.toString(),
+                                        eventListData!.kacl.toString(),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: AppTheme.fontName,
@@ -224,7 +224,7 @@ class MealsView extends StatelessWidget {
                                       padding: const EdgeInsets.all(6.0),
                                       child: Icon(
                                         Icons.add,
-                                        color: HexColor(mealsListData!.endColor),
+                                        color: HexColor(eventListData!.endColor),
                                         size: 24,
                                       ),
                                     ),
@@ -252,7 +252,7 @@ class MealsView extends StatelessWidget {
                     child: SizedBox(
                       width: 80,
                       height: 80,
-                      child: Image.asset(mealsListData!.imagePath),
+                      child: Image.asset(eventListData!.imagePath),
                     ),
                   )
                 ],

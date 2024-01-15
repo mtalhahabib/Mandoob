@@ -8,11 +8,11 @@ import 'dart:math' as math;
 import 'package:web_project/main.dart';
 import 'package:web_project/central_start_of_app/central_app_theme.dart';
 
-class MediterranesnDietView extends StatelessWidget {
+class TimeLeftView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
 
-  MediterranesnDietView({Key? key, this.animationController, this.animation})
+  TimeLeftView({Key? key, this.animationController, this.animation})
       : super(key: key);
 
   String userId = FirebaseAuth.instance.currentUser!.uid;

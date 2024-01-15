@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:web_project/central_start_of_app/ui_view/area_list_view.dart';
 import 'package:web_project/central_start_of_app/ui_view/running_view.dart';
 import 'package:web_project/central_start_of_app/ui_view/title_view.dart';
-import 'package:web_project/central_start_of_app/ui_view/workout_view.dart';
+import 'package:web_project/central_start_of_app/ui_view/papertophone.dart';
 
 import '../central_app_theme.dart';
 
@@ -72,7 +71,7 @@ class _TrainingScreenState extends State<TrainingScreen>
     );
 
     listViews.add(
-      WorkoutView(
+      PapertoPhoneView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
@@ -89,30 +88,7 @@ class _TrainingScreenState extends State<TrainingScreen>
         animationController: widget.animationController!,
       ),
     );
-
-    // listViews.add(
-    //   TitleView(
-    //     titleTxt: 'Area of focus',
-    //     subTxt: 'more',
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-    //         parent: widget.animationController!,
-    //         curve:
-    //             Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
-    //     animationController: widget.animationController!,
-    //   ),
-    // );
-
-    // listViews.add(
-    //   AreaListView(
-    //     mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-    //         CurvedAnimation(
-    //             parent: widget.animationController!,
-    //             curve: Interval((1 / count) * 5, 1.0,
-    //                 curve: Curves.fastOutSlowIn))),
-    //     mainScreenAnimationController: widget.animationController!,
-    //   ),
-    // );
-  }
+ }
 
   Future<bool> getData() async {
     await Future<dynamic>.delayed(const Duration(milliseconds: 50));
