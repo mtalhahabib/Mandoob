@@ -13,11 +13,13 @@ class SignUpController extends GetxController {
       TextEditingController().obs;
   createUserWithEmailAndPassword(context, email, password, name) async {
     try {
+      print('1');
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      print('2');
       final uid = credential.user!.uid;
       RegistrationDatabase().setUserName(uid, email, name);
       Navigator.push(
@@ -31,6 +33,9 @@ class SignUpController extends GetxController {
         Get.snackbar('Sorry', 'The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         Get.snackbar('Sorry', 'The account already exists for that email.');
+      }
+      else{
+        Get.snackbar('Error', '${e}');
       }
     } catch (e) {
       Get.snackbar('Something went wrong', '${e.toString()}');

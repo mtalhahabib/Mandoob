@@ -60,7 +60,7 @@ class HotelListView extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              color: NotesAppTheme.buildLightTheme()
+                              color: NotesAppTheme()
                                   .backgroundColor,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -127,11 +127,13 @@ class _IntroductionScreenState
         signUpController.confirmPasswordController.value.text.isNotEmpty) {
       if (signUpController.passwordController.value.text ==
           signUpController.confirmPasswordController.value.text) {
+            
         signUpController.createUserWithEmailAndPassword(
             context,
             signUpController.emailController.value.text.trim(),
             signUpController.passwordController.value.text.trim(),
             signUpController.nameController.value.text.trim());
+          // print('1');
       } else {
         Get.snackbar('Sorry', 'Password and confirm password does not match');
       }

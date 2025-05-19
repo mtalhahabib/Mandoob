@@ -81,7 +81,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                     padding: const EdgeInsets.all(24.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: NotesAppTheme.buildLightTheme().backgroundColor,
+                        color: NotesAppTheme().backgroundColor,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(24.0)),
                         boxShadow: <BoxShadow>[
