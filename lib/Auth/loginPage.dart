@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {});
   }
 
+
+
   final loginController = Get.put(LoginController());
 
   void _logInClick() {
@@ -33,6 +35,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -42,6 +46,8 @@ class _LoginPageState extends State<LoginPage> {
     loginController.passwordController.value.dispose();
   }
 
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
