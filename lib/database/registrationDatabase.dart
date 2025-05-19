@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class RegistrationDatabase {
   final database = FirebaseFirestore.instance;
 
+  
   Future<void> setUserName(
     String uid,
     String email,
