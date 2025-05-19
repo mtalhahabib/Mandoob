@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:web_project/database/registrationDatabase.dart';
 import 'package:web_project/central_start_of_app/central_home_screen.dart';
 
+
 class SignUpController extends GetxController {
   final Rx<TextEditingController> nameController = TextEditingController().obs;
   final Rx<TextEditingController> emailController = TextEditingController().obs;
@@ -28,6 +29,7 @@ class SignUpController extends GetxController {
           builder: (context) => AppHomeScreen(),
         ),
       );
+
       
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
