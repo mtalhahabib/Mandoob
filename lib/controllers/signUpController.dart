@@ -28,6 +28,7 @@ class SignUpController extends GetxController {
           builder: (context) => AppHomeScreen(),
         ),
       );
+      
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar('Sorry', 'The password provided is too weak.');
