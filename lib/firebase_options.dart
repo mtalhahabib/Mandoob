@@ -50,6 +50,7 @@ class DefaultFirebaseOptions {
     projectId: 'mandoob-c8588',
     authDomain: 'mandoob-c8588.firebaseapp.com',
     storageBucket: 'mandoob-c8588.appspot.com',
+
     measurementId: 'G-11YHBVD81R',
   );
 

@@ -19,6 +19,7 @@ class DesignEventHomeScreen extends StatefulWidget {
   _DesignCourseHomeScreenState createState() => _DesignCourseHomeScreenState();
 }
 
+
 class _DesignCourseHomeScreenState extends State<DesignEventHomeScreen> {
   final ScrollController _scrollController = ScrollController();
 

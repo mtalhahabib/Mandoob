@@ -18,9 +18,7 @@ class DesignCourseAppTheme {
   static const Color chipBackground = Color(0xFFEEF1F3);
   static const Color spacer = Color(0xFFF2F2F2);
 
-  static const TextTheme textTheme = TextTheme(
-    
-  );
+  static const TextTheme textTheme = TextTheme();
 
   static const TextStyle display1 = TextStyle(
     // h4 -> display1
@@ -40,6 +38,7 @@ class DesignCourseAppTheme {
     letterSpacing: 0.27,
     color: darkerText,
   );
+  
 
   static const TextStyle title = TextStyle(
     // h6 -> title
